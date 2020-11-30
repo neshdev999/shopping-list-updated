@@ -25,7 +25,6 @@ function generateItemElement(item) {
 
 
 function generateShoppingItemsString(shoppingList) {
-    console.log("Generating shopping list element");
     const items = shoppingList.map((item) => generateItemElement(item));
     return items.join("");
 }
@@ -33,7 +32,6 @@ function generateShoppingItemsString(shoppingList) {
 
 function renderShoppingList() {
     // render the shopping list in the DOM
-    console.log('`renderShoppingList` ran');
     const shoppingListItemsString = generateShoppingItemsString(STORE);
     // insert that HTML into the DOM
     $('.js-shopping-list').html(shoppingListItemsString);
@@ -41,14 +39,12 @@ function renderShoppingList() {
 
 
 function addItemToShoppingList(itemName) {
-    console.log(`Adding "${itemName}" to shopping list`);
     STORE.push({ id: cuid(), name: itemName, checked: false });
 }
 
 function handleNewItemSubmit() {
     $('#js-shopping-list-form').submit(function(event) {
         event.preventDefault();
-        console.log('`handleNewItemSubmit` ran');
         const newItemName = $('.js-shopping-list-entry').val();
         $('.js-shopping-list-entry').val('');
         addItemToShoppingList(newItemName);
@@ -57,7 +53,6 @@ function handleNewItemSubmit() {
 }
 
 function toggleCheckedForListItem(itemId) {
-    console.log("Toggling checked property for item with id " + itemId);
     const item = STORE.find(item => item.id === itemId);
     item.checked = !item.checked;
 }
@@ -70,7 +65,6 @@ function getItemIdFromElement(item) {
 
 function handleItemCheckClicked() {
     $('.js-shopping-list').on('click', `.js-item-toggle`, event => {
-        console.log('`handleItemCheckClicked` ran');
         const id = getItemIdFromElement(event.currentTarget);
         toggleCheckedForListItem(id);
         renderShoppingList();
@@ -80,12 +74,10 @@ function handleItemCheckClicked() {
 function deleteItemContentFromList(itemId) {
     const item = STORE.find(item => item.id === itemId);
     STORE.splice(STORE.indexOf(item), 1);
-    console.log(STORE);
 }
 
 function handleDeleteItemClicked() {
     $('.js-shopping-list').on('click', `.js-item-delete`, event => {
-        console.log('`handleDeleteItemClicked` ran')
         const id = getItemIdFromElement(event.currentTarget);
         deleteItemContentFromList(id);
         renderShoppingList();
